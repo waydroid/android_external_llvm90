@@ -219,10 +219,10 @@ llvm_amdgpu_static_libraries = [
     "libLLVM90AMDGPUDisassembler",
 ]
 
-
-cc_library_shared {
+cc_library {
     host_supported: true,
     name: "libLLVM90",
+    vendor_available: true,
     defaults: [
         "llvm90-defaults",
         "force_build_llvm90_components",
