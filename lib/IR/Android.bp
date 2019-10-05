@@ -1,14 +1,14 @@
 cc_library_static {
-    name: "libLLVMCore",
+    name: "libLLVM90Core",
     defaults: [
-        "llvm-lib-defaults",
+        "llvm90-lib-defaults",
     ],
-    generated_headers: ["llvm-gen-core"],
+    generated_headers: ["llvm90-gen-core"],
     srcs: ["*.cpp"],
 }
 
-llvm_tblgen {
-    name: "llvm-gen-core",
+llvm90_tblgen {
+    name: "llvm90-gen-core",
     in: "AttributesCompatFunc.td",
     outs: ["AttributesCompatFunc.inc"],
 }

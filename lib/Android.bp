@@ -1,8 +1,8 @@
 cc_defaults {
-    name: "llvm-lib-defaults",
+    name: "llvm90-lib-defaults",
     vendor_available: true,
-    defaults: ["llvm-defaults"],
-    export_header_lib_headers: ["llvm-headers"],
+    defaults: ["llvm90-defaults"],
+    export_header_lib_headers: ["llvm90-headers"],
     target: {
         windows: {
             enabled: true,

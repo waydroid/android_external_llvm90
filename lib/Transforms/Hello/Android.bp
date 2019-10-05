@@ -1,7 +1,7 @@
 cc_library_host_shared {
-    name: "LLVMHello",
+    name: "LLVM90Hello",
     defaults: [
-        "llvm-lib-defaults",
+        "llvm90-lib-defaults",
     ],
     srcs: ["*.cpp"],
     allow_undefined_symbols: true,

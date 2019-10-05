@@ -1,14 +1,14 @@
 cc_defaults {
-    name: "llvm-defaults",
-    defaults: ["llvm-defaults-no-generated-headers"],
-    header_libs: ["llvm-headers"],
+    name: "llvm90-defaults",
+    defaults: ["llvm90-defaults-no-generated-headers"],
+    header_libs: ["llvm90-headers"],
 }
 
 // This module defines all of the defaults used to compiled llvm, except for
 // the generated headers.  It is necessary to avoid a circular dependency
 // from the tblgen tool used to generate the headers to the generated headers.
 llvm_defaults {
-    name: "llvm-defaults-no-generated-headers",
+    name: "llvm90-defaults-no-generated-headers",
 
     host_supported: true,
     clang: true,
@@ -41,7 +41,7 @@ llvm_defaults {
         "-Wno-error=user-defined-warnings",
     ],
 
-    header_libs: ["llvm-headers-no-generated-headers"],
+    header_libs: ["llvm90-headers-no-generated-headers"],
 
     target: {
         android: {
@@ -96,7 +96,7 @@ llvm_defaults {
 }
 
 cc_library_headers {
-    name: "llvm-headers-no-generated-headers",
+    name: "llvm90-headers-no-generated-headers",
     vendor_available: true,
     host_supported: true,
     export_include_dirs: ["include"],
@@ -117,20 +117,20 @@ cc_library_headers {
 }
 
 cc_library_headers {
-    name: "llvm-headers",
+    name: "llvm90-headers",
     vendor_available: true,
     host_supported: true,
-    header_libs: ["llvm-headers-no-generated-headers"],
-    export_header_lib_headers: ["llvm-headers-no-generated-headers"],
+    header_libs: ["llvm90-headers-no-generated-headers"],
+    export_header_lib_headers: ["llvm90-headers-no-generated-headers"],
     generated_headers: [
-        "llvm-gen-attributes",
-        "llvm-gen-intrinsics",
-        "llvm-gen-revision",
+        "llvm90-gen-attributes",
+        "llvm90-gen-intrinsics",
+        "llvm90-gen-revision",
     ],
     export_generated_headers: [
-        "llvm-gen-attributes",
-        "llvm-gen-intrinsics",
-        "llvm-gen-revision",
+        "llvm90-gen-attributes",
+        "llvm90-gen-intrinsics",
+        "llvm90-gen-revision",
     ],
     target: {
         windows: {
@@ -139,14 +139,14 @@ cc_library_headers {
     },
 }
 
-llvm_tblgen {
-    name: "llvm-gen-attributes",
+llvm90_tblgen {
+    name: "llvm90-gen-attributes",
     in: "include/llvm/IR/Attributes.td",
     outs: ["llvm/IR/Attributes.inc"],
 }
 
-llvm_tblgen {
-    name: "llvm-gen-intrinsics",
+llvm90_tblgen {
+    name: "llvm90-gen-intrinsics",
     in: "include/llvm/IR/Intrinsics.td",
     outs: [
         "llvm/IR/IntrinsicEnums.inc",
@@ -155,15 +155,15 @@ llvm_tblgen {
 }
 
 genrule {
-    name: "llvm-gen-revision",
+    name: "llvm90-gen-revision",
     out: ["llvm/Support/VCSRevision.h"],
     srcs: [".git/logs/HEAD*"],
     tool_files: ["git_sha1_gen.py"],
     cmd: "python $(location git_sha1_gen.py) --output $(out)",
 }
 
-force_build_llvm_components_defaults {
-    name: "force_build_llvm_components",
+force_build_llvm90_components_defaults {
+    name: "force_build_llvm90_components",
     // Host build disabled by soong/llvm.go unless FORCE_BUILD_LLVM_COMPONENTS
     // environment variable is set
 }
@@ -171,114 +171,114 @@ force_build_llvm_components_defaults {
 // LLVM shared library build
 
 llvm_arm_static_libraries = [
-    "libLLVMARMCodeGen",
-    "libLLVMARMAsmParser",
-    "libLLVMARMAsmPrinter",
-    "libLLVMARMInfo",
-    "libLLVMARMDesc",
-    "libLLVMARMDisassembler",
-    "libLLVMARMUtils",
+    "libLLVM90ARMCodeGen",
+    "libLLVM90ARMAsmParser",
+    "libLLVM90ARMAsmPrinter",
+    "libLLVM90ARMInfo",
+    "libLLVM90ARMDesc",
+    "libLLVM90ARMDisassembler",
+    "libLLVM90ARMUtils",
 ]
 
 llvm_x86_static_libraries = [
-    "libLLVMX86CodeGen",
-    "libLLVMX86Info",
-    "libLLVMX86Desc",
-    "libLLVMX86AsmParser",
-    "libLLVMX86AsmPrinter",
-    "libLLVMX86Utils",
-    "libLLVMX86Disassembler",
+    "libLLVM90X86CodeGen",
+    "libLLVM90X86Info",
+    "libLLVM90X86Desc",
+    "libLLVM90X86AsmParser",
+    "libLLVM90X86AsmPrinter",
+    "libLLVM90X86Utils",
+    "libLLVM90X86Disassembler",
 ]
 
 llvm_mips_static_libraries = [
-    "libLLVMMipsCodeGen",
-    "libLLVMMipsInfo",
-    "libLLVMMipsDesc",
-    "libLLVMMipsAsmParser",
-    "libLLVMMipsAsmPrinter",
-    "libLLVMMipsDisassembler",
+    "libLLVM90MipsCodeGen",
+    "libLLVM90MipsInfo",
+    "libLLVM90MipsDesc",
+    "libLLVM90MipsAsmParser",
+    "libLLVM90MipsAsmPrinter",
+    "libLLVM90MipsDisassembler",
 ]
 
 llvm_aarch64_static_libraries = [
-    "libLLVMAArch64CodeGen",
-    "libLLVMAArch64Info",
-    "libLLVMAArch64Desc",
-    "libLLVMAArch64AsmParser",
-    "libLLVMAArch64AsmPrinter",
-    "libLLVMAArch64Utils",
-    "libLLVMAArch64Disassembler",
+    "libLLVM90AArch64CodeGen",
+    "libLLVM90AArch64Info",
+    "libLLVM90AArch64Desc",
+    "libLLVM90AArch64AsmParser",
+    "libLLVM90AArch64AsmPrinter",
+    "libLLVM90AArch64Utils",
+    "libLLVM90AArch64Disassembler",
 ]
 
 llvm_amdgpu_static_libraries = [
-    "libLLVMAMDGPUCodeGen",
-    "libLLVMAMDGPUInfo",
-    "libLLVMAMDGPUDesc",
-    "libLLVMAMDGPUAsmParser",
-    "libLLVMAMDGPUAsmPrinter",
-    "libLLVMAMDGPUUtils",
-    "libLLVMAMDGPUDisassembler",
+    "libLLVM90AMDGPUCodeGen",
+    "libLLVM90AMDGPUInfo",
+    "libLLVM90AMDGPUDesc",
+    "libLLVM90AMDGPUAsmParser",
+    "libLLVM90AMDGPUAsmPrinter",
+    "libLLVM90AMDGPUUtils",
+    "libLLVM90AMDGPUDisassembler",
 ]
 
 
 cc_library_shared {
     host_supported: true,
-    name: "libLLVM",
+    name: "libLLVM90",
     defaults: [
-        "llvm-defaults",
-        "force_build_llvm_components",
+        "llvm90-defaults",
+        "force_build_llvm90_components",
     ],
 
     whole_static_libs: [
         // pre static libraries
-        "libLLVMLinker",
-        "libLLVMipo",
-        "libLLVMDebugInfoDWARF",
-        "libLLVMDebugInfoMSF",
-        "libLLVMDebugInfoPDB",
-        "libLLVMSymbolize",
-        "libLLVMIRReader",
-        "libLLVMBitWriter",
-        "libLLVMBitReader",
-        "libLLVMPasses",
-        "libLLVMDemangle",
-        "libLLVMBitstreamReader",
+        "libLLVM90Linker",
+        "libLLVM90ipo",
+        "libLLVM90DebugInfoDWARF",
+        "libLLVM90DebugInfoMSF",
+        "libLLVM90DebugInfoPDB",
+        "libLLVM90Symbolize",
+        "libLLVM90IRReader",
+        "libLLVM90BitWriter",
+        "libLLVM90BitReader",
+        "libLLVM90Passes",
+        "libLLVM90Demangle",
+        "libLLVM90BitstreamReader",
 
         // post static libraries
-        "libLLVMLTO",
-        "libLLVMAsmPrinter",
-        "libLLVMSelectionDAG",
-        "libLLVMCodeGen",
-        "libLLVMDebugInfoCodeView",
-        "libLLVMObject",
-        "libLLVMScalarOpts",
-        "libLLVMAggressiveInstCombine",
-        "libLLVMInstCombine",
-        "libLLVMInstrumentation",
-        "libLLVMTransformObjCARC",
-        "libLLVMTransformUtils",
-        "libLLVMAnalysis",
-        "libLLVMTarget",
-        "libLLVMGlobalISel",
-        "libLLVMMCDisassembler",
-        "libLLVMMC",
-        "libLLVMMCParser",
-        "libLLVMCore",
-        "libLLVMAsmParser",
-        "libLLVMOption",
-        "libLLVMSupport",
-        "libLLVMVectorize",
-        "libLLVMProfileData",
-        "libLLVMProfileDataCoverage",
-        "libLLVMLibDriver",
-        "libLLVMExecutionEngine",
-        "libLLVMRuntimeDyld",
-        "libLLVMMCJIT",
-        "libLLVMOrcJIT",
-        "libLLVMBinaryFormat",
-        "libLLVMMIRParser",
-        "libLLVMRemarks",
-        "libLLVMJITLink",
-        "libLLVMCoroutines",
+        "libLLVM90LTO",
+        "libLLVM90AsmPrinter",
+        "libLLVM90SelectionDAG",
+        "libLLVM90CodeGen",
+        "libLLVM90DebugInfoCodeView",
+        "libLLVM90Object",
+        "libLLVM90ScalarOpts",
+        "libLLVM90AggressiveInstCombine",
+        "libLLVM90InstCombine",
+        "libLLVM90Instrumentation",
+        "libLLVM90TransformObjCARC",
+        "libLLVM90TransformUtils",
+        "libLLVM90Analysis",
+        "libLLVM90Target",
+        "libLLVM90GlobalISel",
+        "libLLVM90MCDisassembler",
+        "libLLVM90MC",
+        "libLLVM90MCParser",
+        "libLLVM90Core",
+        "libLLVM90AsmParser",
+        "libLLVM90Option",
+        "libLLVM90Support",
+        "libLLVM90Vectorize",
+        "libLLVM90ProfileData",
+        "libLLVM90ProfileDataCoverage",
+        "libLLVM90LibDriver",
+        "libLLVM90ExecutionEngine",
+        "libLLVM90RuntimeDyld",
+        "libLLVM90MCJIT",
+        "libLLVM90OrcJIT",
+        "libLLVM90BinaryFormat",
+        "libLLVM90MIRParser",
+        "libLLVM90Remarks",
+        "libLLVM90JITLink",
+        "libLLVM90Coroutines",
     ],
 
     export_include_dirs: ["include"],
