@@ -47,4 +47,8 @@
 #  error Unsupported TARGET_ARCH for LLVM_DISASSEMBLER
 #endif
 
+#if defined(FORCE_BUILD_AMDGPU)
+  LLVM_DISASSEMBLER(AMDGPU)
+#endif
+
 #undef LLVM_DISASSEMBLER

@@ -47,4 +47,8 @@
 #  error Unsupported TARGET_ARCH for LLVM_ASM_PRINTER
 #endif
 
+#if defined(FORCE_BUILD_AMDGPU)
+  LLVM_ASM_PRINTER(AMDGPU)
+#endif
+
 #undef LLVM_ASM_PRINTER
