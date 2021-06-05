@@ -19,6 +19,7 @@ cc_defaults {
 
 cc_library_static {
     name: "llvm90-amdgpu-headers",
+    vendor_available: true,
     host_supported: true,
     target: {
         windows: {
